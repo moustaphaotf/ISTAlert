@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IST-ALERT</title>
+    
+    <!-- les fichiers externes -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/jquery.mobile-1.4.5.min.css">
+    <script src="assets/js/jquery-1.11.3.min.js" defer></script>
+    <script src="assets/js/jquery.mobile-1.4.5.min.js" defer></script>
+
+
+    <!-- <script src="toastr/toastr.min.js" defer></script>
+    <link rel="stylesheet" href="toastr/toastr.min.css"> -->
+</head>
+<body>
+    <div class="container">
+        <!-- home page -->
+        <div data-role="page" class="home_page" id="home_page">
+            <!-- header -->
+            <div data-role="header">
+                
+                <h4 class="h1 text-info">IST-ALERT</h4>
+            </div>
+            <!-- main  -->
+            <div id="home_page_main" class="ui-content" data-role="main">
+                <div class="logo_box">
+                    <img src="assets/img/istalert.jpg" alt="">
+                </div>
+                <div class="student_btn_box">
+                    <a id="btn_student" data-transition="slideup" href="#rubriques" class="ui-btn ui-shadow">Etudiant</a>
+                </div>
+                <div class="admin_btn_box">
+                    <a id="btn_admin" data-transition="slideup" href="#admin_page" class="ui-btn ui-shadow">Administrateur</a>
+                </div>
+                <div class="about_btn_box">
+                    <a id="btn_about" data-transition="slideup" href="#a_propos" class="ui-btn ui-shadow">A propos</a>
+                </div>
+            </div>
+            <!-- footer box -->
+            <div data-role="footer" data-position="fixed">
+                <h5>Tous droits Reservés &copy; IST-ALERT</h5>
+                <h6>Contact : +224 624 794 760</h6>
+            </div>
+        </div>
+
+        <!-- pannel etudiant 1 -->
+        <div data-role="page" class="home_page" id="pannel_1">
+            <!-- header -->
+            <div data-role="header" data-add-back-btn="true" data-back-btn-text="Retour" data-back-btn-theme="b">
+                <a class="ui-btn ui-icon-back ui-corner-all ui-btn-icon-notext" href="#rubriques"></a>
+                <h4 class="h1 text-info">ETUDIANT</h4>
+            </div>
+            <div id="pannel_footer" class="ui-grid-a">
+                <div class="btn_reglement ui-block-a">
+                    <a data-transition="flip" href="#" class="ui-btn " data-theme="b">Règlements</a>
+                </div>
+                <div class=" ui-block-b">
+                    <a data-transition="flip" href="#pannel_2" class="ui-btn" data-theme="b">Signaler un fait</a>
+                </div>
+                     <div class=" ui-block-b">
+                    <a data-transition="flip" href="#pannel_3" class="ui-btn" data-theme="b">Alerts</a>
+                </div>
+            </div>
+            <!-- main  -->
+            <div class="ui-content" data-role="main">
+                <!-- reglement content -->
+                <div class="reglement_content" id="reglement_content">
+                    <iframe title="reglement interieurs" name="reglement" frameborder="0"  src="./reglement.html" ></iframe>
+                </div>
+            </div>
+            <!-- footer box -->
+            
+        </div>
+        <!-- pannel etudiant2 -->
+        <div data-role="page" class="home_page" id="pannel_2">
+            <!-- header -->
+            <div data-role="header" data-add-back-btn="true" data-back-btn-text="Retour" data-back-btn-theme="b">
+                <a class="ui-btn ui-icon-back ui-corner-all ui-btn-icon-notext" href="#rubriques"></a>
+                <h4 class="h1 text-info">ETUDIANT</h4>
+            </div>
+            <!-- footer box -->
+            <div id="pannel_footer" class="ui-grid-a">
+                <div class=" ui-block-a">
+                    <a data-transition="flip" href="#pannel_1" class="ui-btn " data-theme="b">Règlements</a>
+                </div>
+                <div class="btn-signal ui-block-b">
+                    <a data-transition="flip" href="#" class="ui-btn" data-theme="b">Signaler un fait</a>
+                </div>
+                     <div class="ui-block-a">
+                    <a data-transition="flip" href="#pannel_3" class="ui-btn" data-theme="b">Alerts</a>
+                </div>
+            </div>
+            <!-- main  -->
+            <div class="ui-content" data-role="main">
+                <!-- alert form -->
+                <div class="alert_content" id="alert_content">
+                    <form method="post" action="#" name="sendUserMessage">
+                        <select name="category" id="category" data-native-menu="false">
+                            <option value="">Catégorie de l'incident</option>
+                            <option value="Incivisme">Incivisme</option>
+                            <option value="Vol">Vol</option>
+                            <option value="Maladie">Maladie</option>
+                            <option value="Harcèlement">Harcèlement</option>
+                            <option value="Incendie">Incendie</option>
+                            <option value="Viol">Viol</option>
+                            <option value="Bagarre">Bagarre</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                        <input name="categoryText" id="categoryText" type="text" style="display: none;" placeholder="Catégorie de l'incident">
+                        <input required class="pseudo" type="text" name="pseudo" id="pseudo" placeholder="Votre pseudo">
+                        <textarea required placeholder="Votre message ici" name="message" id="message"></textarea>
+                        <div class="btn_envoi">
+                            <button type="submit" id="submit-message" name="submit" class="ui-btn ui-btn-inline">Envoi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+       
+                <!-- pannel etudiant3 -->
+        <div data-role="page" class="home_page" id="pannel_3">
+            <!-- header -->
+            <div data-role="header" data-add-back-btn="true" data-back-btn-text="Retour" data-back-btn-theme="b">
+                <a class="ui-btn ui-icon-back ui-corner-all ui-btn-icon-notext" href="#rubriques"></a>
+                <h4 class="h1 text-info">ETUDIANT</h4>
+            </div>
+            <!-- footer box -->
+            <div id="pannel_footer" class="ui-grid-a">
+                <div class=" ui-block-a">
+                    <a data-transition="flip" href="#pannel_1" class="ui-btn " data-theme="b">Règlements</a>
+                </div>
+                <div class="ui-block-a">
+                    <a data-transition="flip" href="#pannel_2" class="ui-btn" data-theme="b">Signaler un fait</a>
+                </div>
+                     <div class="btn-signal ui-block-b">
+                    <a data-transition="flip" href="#" class="ui-btn" data-theme="b">Alerts</a>
+                </div>
+            </div>
+            <!-- main  -->
+            <div class="ui-content" data-role="main">
+                <!-- alert etudiants -->
+                <ul id="admin-messages" data-role="listview" class="ui-listview" data-filter="true" data-filter-placeholder="Rechechez un message" data-inset="true">
+                        <li><a href="#detail_Admin_message" >Orange</a></li>
+                        <li><a href="#detail_Admin_message">Orange</a></li>
+                        <li><a href="#detail_Admin_message" >Orange</a></li>
+                        <li><a href="#detail_Admin_message" >Orange</a></li>
+                        <li><a href="#detail_Admin_message">Orange</a></li>
+                </ul>
+                <p style="display: none; text-align: center;" class="empty-list">Aucun résultat trouvé !</p>
+
+               
+            </div>
+            
+        </div>
+         <!-- Modal pour afficher les détails du message admin-->
+         <div data-role="page" class="page_admin" id="detail_Admin_message">
+            <!-- header -->
+            <div data-role="header">
+                <h6 style="font-size: 16px !important;" class="h1 text-info">Détails du message</h6>
+            </div>
+            <div style="padding: 10px; margin-top: 20px;">
+                <strong>De : </strong><span id="message-author">Administrateur</span></br>
+                <strong>Envoyé le : </strong><span id="message-date"></span></br>
+                <strong>Contenu :</strong> 
+                <p id="message-content"></p>
+            </div>
+            <a href="#pannel_3" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-back">Retour</a>
+        </div>
+
+        <!-- page d'administration -->
+        <div data-role="page" class="home_page" id="admin_page">
+            <!-- header -->
+            <div data-role="header">
+                <a class="ui-btn ui-icon-home ui-corner-all ui-btn-icon-notext" href="#home_page"></a>
+                <h4 class="h1 text-info">ADMIN</h4>
+            </div>
+            <!-- main  -->
+            <div class="ui-content" data-role="main">
+                <form action="" name="loginAdmin">
+                    <div class="ui-field-contain">
+                        <input required class="email" type="text" name="email" placeholder="Votre email">
+                        <input required class="password" type="password" name="password" placeholder="Mot de passe">
+                    </div>
+                    <div class="ui-field-contain admin_btn">
+                        <button name="submit" type="submit" id="submit" class="ui-btn ui-btn-inline ui-icon-check ui-btn-icon-right">Connexion</button>
+                    </div>
+                    <div class="ui-field-contain admin_btn">
+                        <button type="button" class="ui-btn ui-btn-inline ui-icon-lock ui-btn-icon-left">Mot de passe oublié ?</button>
+                        <!-- <a href="#admin_1">access</a> -->
+                    </div>
+                </form>
+            </div>
+            <!-- footer box -->
+            <div data-role="footer">
+                <h5>Tous droits Reservé &copy; IST-ALERT</h5>
+                <h6>Contact : +224 624 794 760</h6>
+            </div>
+        </div>
+
+        <!-- admin 1 -->
+        <div data-role="page" class="page_admin" id="admin_1">
+            <!-- header -->
+            <div data-role="header">
+                <a class="ui-btn ui-icon-home ui-corner-all ui-btn-icon-notext" href="#home_page"></a>
+                    <h4 class="h1 text-info">ADMIN</h4>
+                <a class="logout ui-btn ui-icon-power ui-corner-all ui-btn-icon-notext ui-btn-right" href="#">Logout</a>
+
+            </div>
+            <!-- footer box -->
+            <div id="pannel_footer" class="admin_footer ui-grid-a">
+                <div class="admin_btn_1 ui-block-a">
+                    <a data-transition="flip" href="#" class="ui-btn " data-theme="b">Règlements</a>
+                </div>
+                <div class=" ui-block-b">
+                    <a data-transition="flip" href="#admin_2" class="ui-btn" data-theme="b">Alerts</a>
+                </div>
+                <div class="ui-block-b">
+                    <a data-transition="flip" href="#admin_3" class="ui-btn" data-theme="b">Envoi SMS</a>
+                </div>
+            </div>
+            <!-- main  -->
+            <div class="ui-content" data-role="main">
+                <!-- reglement content -->
+                <div class="reglement_content" id="reglement_content">
+                    <iframe title="reglement interieurs" name="reglement" frameborder="0"  src="./reglement.html" ></iframe>
+                </div>
+            </div>
+            
+        </div>
+        <!-- ADMIN 2 -->
+        <div data-role="page" class="page_admin" id="admin_2">
+            <!-- header -->
+            <div data-role="header">
+                <a class="ui-btn ui-icon-home ui-corner-all ui-btn-icon-notext" href="#home_page"></a>
+                <h4 class="h1 text-info">ADMIN</h4>
+                <a class="logout ui-btn ui-icon-power ui-corner-all ui-btn-icon-notext ui-btn-right" href="#">Logout</a>
+            </div>
+            <!-- footer box -->
+            <div id="pannel_footer" class="ui-grid-a">
+                <div class=" ui-block-a">
+                    <a data-transition="flip" href="#admin_1" class="ui-btn " data-theme="b">Règlements</a>
+                </div>
+                <div class="admin_btn_2 ui-block-b">
+                    <a data-transition="flip" href="#" class="ui-btn" data-theme="b">Alerts</a>
+                </div>
+                <div class=" ui-block-b">
+                    <a data-transition="flip" href="#admin_3" class="ui-btn" data-theme="b">Envoi SMS</a>
+                </div>
+            </div>
+            <!-- main  -->
+            <div class="ui-content" data-role="main">
+                <select id="filtreMessages">
+                    <option value="all">Tous les messages</option>
+                    <option value="unread">Messages non lus</option>
+                    <option value="read">Messages lus</option>
+                </select>
+                <ul id="user-messages" data-role="listview" class="ui-listview" data-filter="true" data-filter-placeholder="Rechechez un message" data-inset="true">
+                <!--     <li><a href="#popupLogin" data-rel="popup" data-position-to="window">Orange</a></li>
+                    <li><a href="#popupLogin" data-rel="popup" data-position-to="window">Orange</a></li>
+                    <li><a href="#popupLogin" data-rel="popup" data-position-to="window">Orange</a></li>
+                    <li><a href="#popupLogin" data-rel="popup" data-position-to="window">Orange</a></li>
+                    <li><a href="#popupLogin" data-rel="popup" data-position-to="window">Orange</a></li> -->
+                </ul>
+                <p style="display: none; text-align: center;" class="empty-list">Aucun résultat trouvé !</p>
+            </div>
+            <!-- /end -->
+        </div>
+        <!-- Modal pour afficher les détails du message user-->
+        <div data-role="page" class="page_admin" id="popupLogin">
+            <!-- header -->
+            <div data-role="header">
+                <h6 style="font-size: 16px !important;" class="h1 text-info">Détails du message</h6>
+            </div>
+            <div style="padding: 10px; margin-top: 20px;">
+                <strong>De : </strong><span id="message-author"></span></br>
+                <strong>Envoyé le : </strong><span id="message-date"></span></br>
+                <strong>Catégorie : </strong><span id="message-category"></span></br>
+                <strong>Contenu :</strong> 
+                <p id="message-content"></p>
+            </div>
+            <a href="#admin_2" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-back">Retour</a>
+        </div>
+        
+        <!-- ADMIN 3 -->
+        <div data-role="page" class="page_admin" id="admin_3">
+            <!-- header -->
+            <div data-role="header">
+                <a class="ui-btn ui-icon-home ui-corner-all ui-btn-icon-notext" href="#home_page"></a>
+                <h4 class="h1 text-info">ADMIN</h4>
+                <div class="ui-btn-right">
+                    <a class="ui-btn ui-icon-gear ui-corner-all ui-btn-icon-notext" href="#phone-settings"></a>
+                    <a class="logout ui-btn ui-icon-power ui-corner-all ui-btn-icon-notext" href="#">Logout</a>
+                </div>
+            </div>
+            
+            <!-- footer box -->
+            <div id="pannel_footer" class="ui-grid-a">
+                <div class=" ui-block-a">
+                    <a data-transition="flip" href="#admin_1" class="ui-btn " data-theme="b">Règlements</a>
+                </div>
+                <div class=" ui-block-b">
+                    <a data-transition="flip" href="#admin_2" class="ui-btn" data-theme="b">Alerts</a>
+                </div>
+                <div class="admin_btn_3 ui-block-b">
+                    <a data-transition="flip" href="#" class="ui-btn" data-theme="b">Envoi SMS</a>
+                </div>
+            </div>
+            <!-- main  -->
+            <div class="ui-content" data-role="main">
+                <form id="sendAdminMessage" method="post" action="#" name="sendAdminMessage">
+                    <!-- Destinataires -->
+                    <select title="destinataire" name="destinataire" id="destinataire" data-native-menu="false">
+                            <option selected value="">Destinataire</option>
+                            <option value="chefDep">Chef de Departement</option>
+                            <option value="chefClasse">Chef de Classe</option>
+                            <option value="etudiants">Etudiants</option>
+                    </select>
+                    <!-- les département -->
+                    <div class="ui-field-contain">
+                            <fieldset style="display: none;" id="block-departement" data-role="controlgroup">
+                                    <legend>Départements</legend>
+                                    <input class="departement" type="checkbox" value="informatique" name="informatique" id="genieInfo">
+                                    <label for="genieInfo">Génie Informatique</label>
+                                    <input class="departement" value="instrumentation" type="checkbox" name="instrumentation" id="imp">
+                                    <label for="imp">Instrumentation et Mesure Physique</label>
+                
+                                    <input class="departement" type="checkbox" value="teb" name="teb" id="teb">
+                                    <label for="teb">Techniques des Equipéments Biomédaux</label>
+                                    <input class="departement" type="checkbox" value="cfm" name="cfm" id="cfm">
+                                    <label for="cfm">Conception et Fabrication Mécanique</label>
+                                    <input class="departement" type="checkbox" name="laboratoire" value="laboratoire" id="labo">
+                                    <label for="labo">Techniques de Laboratoire</label>
+                                    <input class="departement" type="checkbox" value="energetique" name="energetique" id="energie">
+                                    <label for="energie">Energetique</label>
+                        </fieldset>
+                    </div>
+                    <!-- niveau -->
+                     <fieldset style="display: none;" id="block-niveau"data-role="controlgroup" data-type="vertical" id="fieldset">
+                                <legend>Niveaux:</legend>
+                                <input value="l1" class="niveau" type="checkbox" name="l1" id="checkbox-h-2a">
+                                <label for="checkbox-h-2a">Licence 1</label>
+                                <input value="l2" class="niveau" type="checkbox" name="l2" id="checkbox-h-2b">
+                                <label for="checkbox-h-2b">Licence 2</label>
+                                <input value="l3" class="niveau" type="checkbox" name="l3" id="checkbox-h-2c">
+                                <label for="checkbox-h-2c">Licence 3</label>
+                                <input value="l4" class="niveau" type="checkbox" name="l4" id="checkbox-h-2d">
+                                <label for="checkbox-h-2d">Licence 4</label>
+                    </fieldset>
+                    <!-- message -->
+                    <textarea required placeholder="Votre message ici" name="message" id="adminMessage"></textarea>
+                    <div class="admin_btn_envoi">
+                        <button type="submit" id="admin-submit-message" name="submit" class="ui-btn ui-btn-inline">Envoi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Interface de paramétrage des numéros de télephone -->
+        <div data-role="page" class="page_admin" id="phone-settings">
+            <!-- header -->
+            <div data-role="header">
+                <a class="ui-btn ui-icon-back ui-corner-all ui-btn-icon-notext" href="#admin_3"></a>
+                <h4 class="h1 text-info">Admin</h4>
+            </div>
+            <div class="ui-content" data-role="main">
+                <h2 style="text-align: center; margin-top: 0    ;">Configuration des numéros de téléphone</h2>
+                <p style="font-size: 1.2em;">Choisissez un département à configurer</p><br>
+                <ul data-role="listview">
+                    <li><a data-id="informatique"  href="#phone-form">Génie Informatique</a></li>
+                    <li><a data-id="energetique" href="#phone-form">Energétique</a></li>
+                    <li><a data-id="instrumentation" href="#phone-form">Instrumentation et maintenance</a></li>
+                    <li><a data-id="teb" href="#phone-form">Technologie et Equipements Biomédicaux</a></li>
+                    <li><a data-id="cfm" href="#phone-form">Conception et Fabrication Mécanique</a></li>
+                    <li><a data-id="laboratoire" href="#phone-form">Technique de Laboratoire</a></li>
+                </ul>
+            </div>
+        </div>
+
+        
+        <!-- Interface de paramétrage des numéros de télephone (le formulaire) -->
+        <div data-role="page" class="page_admin" id="phone-form">
+            <!-- header -->
+            <div data-role="header">
+                <a class="ui-btn ui-icon-back ui-corner-all ui-btn-icon-notext" href="#phone-settings"></a>
+                <h4 class="h1 text-info">Admin</h4>
+            </div>
+            <div class="ui-content" data-role="main">
+                <form name="phoneForm">
+                    <h4 id="nom-departement"></h4>
+                    <div>
+                        <label for="contact-departement">Contact du département</label>
+                        <input type="text" id="contact-departement" name="contactDepartement"/>
+                    </div>
+                    <p>Contact des chefs de classe</p>
+                    
+                    <div>
+                        <label for="contact-l1">Licence 1</label>
+                        <input type="text" id="contact-l1" name="contactL1"/>
+                    </div>
+                    
+                    <div>
+                        <label for="contact-l2">Licence 2</label>
+                        <input type="text" id="contact-l2" name="contactL2"/>
+                    </div>
+                    
+                    <div>
+                        <label for="contact-l3">Licence 3</label>
+                        <input type="text" id="contact-l3" name="contactL3"/>
+                    </div>
+                    
+                    <div>
+                        <label for="contact-l4">Licence 4</label>
+                        <input type="text" id="contact-l4" name="contactL4"/>
+                    </div>
+    
+                    <div style="margin-top: 20px;">
+                        <button name="submit" type="submit">Enregistrer et quitter</button>
+                        <a href="#phone-settings" class="ui-btn">Quitter sans enregistrer</a>
+                    </div>
+                    <input type="hidden" value="" id="id-departement" name="idDepartement">
+                </form>
+            </div>
+        </div>
+
+        <!-- a propos -->
+        <div data-role="page" class="page_admin" id="a_propos">
+            <!-- header -->
+            <div data-role="header">
+                <a class="ui-btn ui-icon-home ui-corner-all ui-btn-icon-notext" href="#home_page"></a>
+                <h4 class="h1 text-info">A PROPOS</h4>
+            </div>
+            <!-- main  -->
+            <div id="a_propos_text" class="ui-content" data-role="main">
+                <p class="apropos">
+                    <b>IST-ALERT</b> est une application mobile qui permet d'améliorer la sécurité et le civisme sur le campus universitaire de Telico.
+                </p>
+               <p>
+                L'application permet de renforcer la sécurité et le respect des normes en favorisant la participation active des etudiants elle permet également de prévenir les situations à risque, d'alerter rapidement les autorités compétante en d'incident et d'améliorer le respect des règles et des normes de vies dans l'institution universitaire.
+               </p>
+            </div>
+            <!-- footer box -->
+            <div data-role="footer">
+                <h5>Tous droits Reservés &copy; IST-ALERT</h5>
+                <h6>Contact : +224 624 794 760</h6>
+            </div>
+        </div>
+
+                <!-- bloc sur les ulistrations -->
+
+        <!-- la page des rubriques -->
+        <div data-role="page" class="home_page" id="rubriques">
+            <!-- header -->
+            <div data-role="header" data-add-back-btn="true" data-back-btn-text="Retour" data-back-btn-theme="b">
+                <a class="ui-btn ui-icon-home ui-corner-all ui-btn-icon-notext" href="#home_page"></a>
+                <h4 class="h1 text-info">ETUDIANT</h4>
+            </div>
+            <!-- footer box -->
+            <div data-role="footer" data-position="fixed">
+                <h5>Tous droits Reservés &copy; IST-ALERT</h5>
+                <h6>Contact : +224 624 794 760</h6>
+            </div>
+            <!-- main  -->
+            <div class="ui-content btnCategories" data-role="main">
+                <p class="categories">ILLUSTRATIONS DES CAS</p>
+                <div class="btns">
+                    <a href="#violences" class="ui-btn">Violence</a>
+                    <a href="#civismes" class="ui-btn">Incivisme | Civisme</a>
+                    <a href="#citoyennetes" class="ui-btn">Citoyenneté</a>
+                    <a href="#harcelements" class="ui-btn">Harcèlement</a>
+                    <a href="#viols" class="ui-btn">Viols</a>
+                </div>
+
+                <p class="categories">Signaler un fait ou réglement de l'IST-M</p>
+               <div class="btns">
+                    <a data-transition="slideup" href="#pannel_1" class="ui-btn">ACCES</a>
+               </div>
+            </div>
+
+        </div>
+
+        <!-- /fin -->
+        <!-- viols box -->
+        <div data-role="page" class="home_page" id="viols">
+            <!-- header -->
+            <div data-role="header">
+                <a class="ui-btn ui-icon-back ui-corner-all ui-btn-icon-notext" href="#rubriques"></a>
+                <h4 class="h1 text-info">ETUDIANT</h4>
+            </div>
+            <!-- footer box -->
+            <div data-role="footer" data-position="fixed">
+                <h5>Tous droits Réservés &copy; IST-ALERT</h5>
+                <h6>Contact : +224 624 794 760</h6>
+            </div>
+            <!-- main  -->
+            <div class="ui-content parent" data-role="main">
+            <!-- les viols -->
+                <div class="ui-corner-all custom-corners">
+                    <div class="ui-bar ui-bar-a">
+                            <h3>Les viols</h3>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe id="mon-iframe" class="iframe " data-theme="b" data-textonly="false" data-textvisible="true" data-msgtext="Guilavogui" data-inline="true" width="560" height="200" src="https://www.youtube.com/embed/zQ1YvoeBV2g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>            
+                        <p class="spinner-border"></p>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/0R-bXj7z1lM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                    
+                        <p class="spinner-border"></p>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/x28YMhrGRAY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                    
+                        <p class="spinner-border"></p>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/OawyyYyM5pc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                    
+                        <p class="spinner-border"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- violences box -->
+        <div data-role="page" class="home_page" id="violences">
+            <!-- header -->
+            <div data-role="header">
+                <a class="ui-btn ui-icon-back ui-corner-all ui-btn-icon-notext" href="#rubriques"></a>
+                <h4 class="h1 text-info">ETUDIANT</h4>
+            </div>
+            <!-- footer box -->
+            <div data-role="footer" data-position="fixed">
+                <h5>Tous droits Réservés &copy; IST-ALERT</h5>
+                <h6>Contact : +224 624 794 760</h6>
+            </div>
+            <!-- main  -->
+            <div class="ui-content" data-role="main">
+                <!-- violence -->
+                <div class="ui-corner-all custom-corners">
+                    <div class="ui-bar ui-bar-a">
+                            <h3>Violence</h3>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/S24eIOtEPpA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                    
+                        <p class="spinner-border"></p>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/bFe2NoDTB4c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>     
+                        <p class="spinner-border"></p>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/xKkpvw9i0iw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>   
+                        <p class="spinner-border"></p>
+                    </div>                 
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/qFlVWYtw6Tk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <p class="spinner-border"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- civisme box -->
+        <div data-role="page" class="home_page" id="civismes">
+            <!-- header -->
+            <div data-role="header">
+                <a class="ui-btn ui-icon-back ui-corner-all ui-btn-icon-notext" href="#rubriques"></a>
+                <h4 class="h1 text-info">ETUDIANT</h4>
+            </div>
+            <!-- footer box -->
+            <div data-role="footer" data-position="fixed">
+                <h5>Tous droits Réservés &copy; IST-ALERT</h5>
+                <h6>Contact : +224 624 794 760</h6>
+            </div>
+            <!-- main  -->
+            <div class="ui-content" data-role="main">
+                <!-- incivisme -->
+                <div class="ui-corner-all custom-corners">
+                    <div class="ui-bar ui-bar-a">
+                            <h3>Incivisme</h3>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/NPC6KypNnDs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                
+                        <p class="spinner-border"></p>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/rRE_zUCu9SU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
+                        <p class="spinner-border"></p>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/rRE_zUCu9SU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
+                        <p class="spinner-border"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- citoyenté -->
+        <div data-role="page" class="home_page" id="citoyennetes">
+            <!-- header -->
+            <div data-role="header">
+                <a class="ui-btn ui-icon-back ui-corner-all ui-btn-icon-notext" href="#rubriques"></a>
+                <h4 class="h1 text-info">ETUDIANT</h4>
+            </div>
+            <!-- footer box -->
+            <div data-role="footer" data-position="fixed">
+                <h5>Tous droits Réservés &copy; IST-ALERT</h5>
+                <h6>Contact : +224 624 794 760</h6>
+            </div>
+            <!-- main  -->
+            <div class="ui-content" data-role="main">
+                <!-- citoyen -->
+                <div class="ui-corner-all custom-corners">
+                    <div class="ui-bar ui-bar-a">
+                            <h3>Citoyenneté</h3>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/pCKTdq2mRAY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <p class="spinner-border"></p>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/hzLKgETg1eA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <p class="spinner-border"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- harclèment -->
+        <div data-role="page" class="home_page" id="harcelements">
+            <!-- header -->
+            <div data-role="header">
+                <a class="ui-btn ui-icon-back ui-corner-all ui-btn-icon-notext" href="#rubriques"></a>
+                <h4 class="h1 text-info">ETUDIANT</h4>
+            </div>
+            <!-- footer box -->
+            <div data-role="footer" data-position="fixed">
+                <h5>Tous droits Réservés &copy; IST-ALERT</h5>
+                <h6>Contact : +224 624 794 760</h6>
+            </div>
+            <!-- main  -->
+            <div class="ui-content" data-role="main">
+                <!-- harcelement -->
+                <div class="ui-corner-all custom-corners">
+                    <div class="ui-bar ui-bar-a">
+                            <h3>Harcèlement</h3>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/blar1yAMXWQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                    
+                        <p class="spinner-border"></p>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/zUW3JyLtYsQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                  
+                        <p class="spinner-border"></p>
+                    </div>
+                    <div class="ui-body ui-body-a parent-iframe">
+                        <iframe class="iframe" width="560" height="200" src="https://www.youtube.com/embed/zeAjp6B_DNs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                    
+                        <p class="spinner-border"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- /fin ulistrations -->
+    </div>
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js"></script> -->
+    
+    <script async type="module">
+        // Configuration de firebase
+        // ----------------------------------------------------------------------------
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-analytics.js";
+        import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, orderBy, getDocs, where, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyDckUN--5E2dlvz5_Q0BzKoNa3bAomt-BE",
+            authDomain: "ist-alert-cb294.firebaseapp.com",
+            projectId: "ist-alert-cb294",
+            storageBucket: "ist-alert-cb294.appspot.com",
+            messagingSenderId: "1044578864011",
+            appId: "1:1044578864011:web:eba0f0fe83d29ba86dbd8e"
+        };
+
+        // const firebaseConfig = {
+        //     apiKey: "AIzaSyDQ0dt8gE-aq4NiwL_f9edWySYvMVOIQ7o",
+        //     authDomain: "fir-rtc-e845a.firebaseapp.com",
+        //     databaseURL: "https://fir-rtc-e845a-default-rtdb.firebaseio.com",
+        //     projectId: "fir-rtc-e845a",
+        //     storageBucket: "fir-rtc-e845a.appspot.com",
+        //     messagingSenderId: "273063587923",
+        //     appId: "1:273063587923:web:910193133432896d2916a6",
+        //     measurementId: "G-QPLJFY9J12",
+        //     enablePersistence: true
+        // };
+        
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const database = getFirestore(app);
+        // ----------------------------------------------------------------------------
+        
+        // A chaque modification du filtre
+        document.querySelector("#admin_2 #filtreMessages").addEventListener('change', loadUserMessages);
+
+        async function loadUserMessages() {
+            // Personnaliser le filtrer
+            const filtre = document.getElementById("filtreMessages").value;
+            let q = null;
+            if(filtre === 'read') {
+                q = query(collection(database, "messages"), orderBy("sent_at", "desc"), where("seen", "==", true));
+            } else if(filtre === 'unread') {
+                q = query(collection(database, "messages"), orderBy("sent_at", "desc"), where("seen", "==", false));
+            } else {
+                q = query(collection(database, "messages"), orderBy("sent_at", "desc"));
+            }
+            const messagesList = document.querySelector("#admin_2 #user-messages");
+            messagesList.innerHTML = ""
+            
+            const querySnapshot = await getDocs(q);
+            
+            querySnapshot.forEach(doc => {
+                const id = doc.id;
+                const data = doc.data();
+                if(data) {
+                    messagesList.innerHTML += `
+                        <li data-id="${id}">
+                            <a data-id="${id}" href="#popupLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-btn-icon-right ui-icon-carat-r ${data.seen === true ? 'msg-read' : 'msg-unread'}">
+                                De : <span style="font-weight:normal !important;">${data.pseudo}</span><br />
+                                Envoyé le : <span style="font-weight:normal !important;">${parseDate(data.sent_at)}</span></br>
+                                Catégorie : <span style="font-weight:normal !important;">${data.category}</span><br />
+                                Contenu : 
+                                <p style="font-weight: normal;">${data.message}</p>
+                            </a>
+                        </li>
+                    `;
+                }
+            });
+            const error = document.querySelector("#admin_2 .empty-list");
+            if(querySnapshot.empty) {
+                error.style.display = 'block';
+            } else {
+                error.style.display = 'none';
+            }
+            refreshLoadingProcess();
+        }
+        
+        //function charge message admin
+        async function loadAdminMessages() {
+            // Personnaliser le filtrer
+            const filtre = document.getElementById("filtreMessages").value;
+            let q = null;
+
+            q = query(collection(database, "adminmessages"), orderBy("sent_at", "desc"));
+
+            const messagesList = document.querySelector("#pannel_3 #admin-messages");
+            messagesList.innerHTML = ""
+            
+            const querySnapshot = await getDocs(q);
+            
+            querySnapshot.forEach(doc => {
+                const id = doc.id;
+                const data = doc.data();
+                if(data) {
+                    messagesList.innerHTML += `
+                        <li data-message='${JSON.stringify(data)}'>
+                            <a data-message='${JSON.stringify(data)}' href="#detail_Admin_message"  class="ui-btn ui-btn-icon-right ui-icon-carat-r">
+                                De : <span style="font-weight:normal !important;">Administrateur</span><br />
+                                Envoyé le : <span style="font-weight:normal !important;">${parseDate(data.sent_at)}</span></br>
+                                Contenu : 
+                                <p style="font-weight: normal;">${data.message}</p>
+                            </a>
+                        </li>
+                    `;
+                }
+            });
+            
+
+            const error = document.querySelector("#pannel_3 .empty-list");
+            if(querySnapshot.empty) {
+                error.style.display = 'block';
+            } else {
+                error.style.display = 'none';
+            }
+        }
+
+        //au clic d'un message de la liste des user
+        
+            
+        document.querySelector('#pannel_3 #admin-messages').addEventListener('click',(e)=>{
+                let message=null;
+                if(e.target.nodeType===HTMLLIElement || e.target.nodeType===HTMLLinkElement){
+                    message=JSON.parse(e.target.getAttribute('data-message'));
+                }else{
+                    message=JSON.parse(e.target.parentElement.getAttribute('data-message'));  
+                }
+                $('#detail_Admin_message #message-date').text(parseDate(message.sent_at));
+                $('#detail_Admin_message #message-content').text(message.message);
+        })
+        
+        // A chaque changement de page
+        $(document).on("pagechange", function(e) {
+            // Si c'est la page de login ou la page d'alertes ou la page d'administration
+            const id_page = location.hash;
+            
+            if(!localStorage.getItem("admin-info") && (id_page === "#admin_1" || id_page === "#admin_2" || id_page === "#admin_3" )){
+                location.hash = "#admin_page";
+            }
+            if(localStorage.getItem("admin-info") && id_page === "#admin_page"){
+                location.hash = "#admin_2";
+            }
+
+            if(id_page === "#admin_2") {
+                const messagesList = document.querySelector("#admin_2 #user-messages");
+                messagesList.innerHTML =""
+                loadUserMessages();
+            }
+            if(id_page === "#pannel_3") {
+                const messagesList = document.querySelector("#pannel_3 #admin-messages");
+                messagesList.innerHTML =""
+                loadAdminMessages();
+            }
+        });
+
+        // Au moment où la page est chargée
+        window.addEventListener("load", async (e) => {
+            const querySnapshot = await getDocs(collection(database, "contacts"));
+            querySnapshot.forEach(doc => {
+                localStorage.setItem(doc.id, JSON.stringify(doc.data()));
+            })
+        })
+
+        // Connexion de l'administrateur
+        const submitBtn = loginAdmin.submit;
+        submitBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            const passwordElem = loginAdmin.password;
+            const emailElem = loginAdmin.email; 
+
+            const email = emailElem.value, password = passwordElem.value;
+            if(email === "" || password === "") {
+                alert("Veuillez renseigner les informations");
+                return;
+            } 
+
+            e.target.disabled = true;
+
+            signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                loginAdmin.reset();
+                const user = userCredential.user;
+                localStorage.setItem("admin-info", JSON.stringify(user));
+                location.hash = "#admin_2";
+            })
+            .catch((error) => {
+                alert("Une erreur est survenue lors de la connexion !");
+                console.log(error);
+            }).finally(() => {
+                e.target.disabled = false;
+            });
+        });
+
+        // Déconnexion de l'administrateur
+        const logoutBtns = document.querySelectorAll(".logout");
+        logoutBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.target.disabled = true;
+                signOut(auth).then(() => {
+                    localStorage.removeItem("admin-info");
+                    // location.hash = "#";
+                }).catch((error) => {
+                    alert("Une erreur est survenue !");
+                }).finally(() => {
+                    e.target.disabled = false;
+                });
+            });
+        });
+
+        // Traitement dynamique sur le formulaire d'envoi d'SMS par l'admin
+        $(sendAdminMessage).on('change', e => {
+            const destinataire = e.target.value;
+            if(destinataire === "chefDep"){
+                $("#admin_3 #block-niveau").hide();
+                $("#admin_3 #block-departement").show();
+            } else if(destinataire === "chefClasse") {
+                $("#admin_3 #block-niveau, #admin_3 #block-departement").show();
+            } else if(destinataire === "etudiants") {
+                $("#admin_3 #block-niveau, #admin_3 #block-departement").hide();
+            }
+        })
+    
+        // Envoi de message par les étudiants
+        sendUserMessage.addEventListener("submit", async function(e){
+            e.preventDefault();
+            
+            const pseudoElement = document.querySelector("#pannel_2 #pseudo")
+            const messageElement = document.querySelector("#pannel_2 #message")
+            const categorySelectElement = document.querySelector("#pannel_2 #category");
+            const categoryTextElement = document.querySelector("#pannel_2 #categoryText");
+
+            const pseudo = pseudoElement.value.trim();
+            const message = messageElement.value.trim();
+            let category = categoryElement.value.trim();
+            if(category === "Autre") {
+                category = categoryTextElement.value.trim();
+            }
+            
+            if(pseudo === "" || message === "" || category === ""){
+                alert("Informations incomplètes !");
+                return;
+            }
+
+            sendUserMessage.submit.disabled = true;
+
+            const data = {pseudo, message, sent_at: new Date().toISOString(), category, seen: false};
+            
+            await addDoc(collection(database, "messages"), data).then(() => {
+                alert("Message envoyé avec succès");
+                sendSMSToAdmin(pseudo, "625126703");
+                sendUserMessage.reset();
+            }).catch(e => {
+                alert("Une erreur est survenue !");
+            }).finally(() => {
+                sendUserMessage.submit.disabled = false;
+            });
+        });
+
+        // Envoi de SMS par l'Administrateur
+        sendAdminMessage.addEventListener("submit", async e => {
+            e.preventDefault()
+            // Récupération des données
+
+            // Récupérer le destinataire
+            const destinataire = sendAdminMessage.destinataire.value;
+            let departementsElements = $('#admin_3 .departement:checked');
+            let classesElements = $('#admin_3 .niveau:checked')
+            let departements = [], classes = [];
+
+            // Récupérer les départements
+            for(let i = 0; i < departementsElements.length; i++) {
+                departements.push(departementsElements[i].value);
+            }
+
+            
+            // Récupérer les classes
+            for(let i = 0; i < classesElements.length; i++) {
+                classes.push(classesElements[i].value);
+            }
+
+            //Récupérer le message
+            const message = sendAdminMessage.message.value.trim();
+
+            if(message === "") {
+                alert("Veuillez saisir votre message !");
+                return;
+            }
+
+            // Récupérer les numéros de téléphone dépuis localStorage
+            if(destinataire !== 'etudiants') {
+                const phoneNumbers = [];
+                for(let dept of departements) {
+                    let deptInfos = localStorage.getItem(dept);
+                   
+                    if(deptInfos) {
+                        deptInfos = JSON.parse(deptInfos);
+
+                        if(destinataire === 'chefClasse'){
+                            // Pour chaque classe on prend le numéro qu'on ajoute
+                            for(let classe of classes) {
+
+                                if(deptInfos[classe] != "") {
+
+                                    phoneNumbers.push(deptInfos[classe])
+                                }
+                            }
+                        } else if(destinataire === 'chefDep') {
+                            if(deptInfos.contact) {
+                                phoneNumbers.push(deptInfos.contact);
+                            }
+                        }
+                    } else {
+                        alert("Veuillez patienter svp !")
+                    }
+                }
+
+                if(phoneNumbers.length === 0) {
+                    alert("Vous devez définir le(s) destinataire(s) dans les paramètres !");
+                    return;
+                }
+
+                
+                sendAdminMessage.submit.disabled = true;
+                // Envoyer le SMS aux destinataires
+                console.log({message, phoneNumbers});
+                sendSMSByAdmin(message, phoneNumbers)
+                .then(data => {
+                    alert("")
+                    console.log(data);
+                }).catch(err => {
+                    alert("Une erreur est survenue lors de l'envoi des messages!")
+                    console.log(err);
+                }).finally(() => {
+                    sendAdminMessage.submit.disabled = false;
+                });
+
+                // Puis on reset le formulaire
+            }
+            else {
+                // Alors ce message est destiné aux étudiants
+                const data = {
+                    sent_at: new Date().toISOString(),
+                    message: message,
+                }
+                
+                const submitBtn = $("#admin_3 button[type='submit']");
+                //console.log(submitBtn);
+                submitBtn.attr('disabled', true);
+
+                await addDoc(collection(database, "adminmessages"), data).then(() => {
+                    alert("Message envoyé avec succès");
+                    sendAdminMessage.reset();
+                }).catch(e => {
+                    alert("Une erreur est survenue !");
+                }).finally(() => {
+                    submitBtn.attr('disabled', false);
+                });
+            }
+        });
+
+
+        // Envoi de SMS à l'Admin pour l'avertir du message d'un étudiant
+        function sendSMSToAdmin(pseudo, phone) {
+            const remoteURL = "http://192.168.43.209:80/serveur/fetch.php";
+            // const remoteURL = "https://api.nimbasms.com/v1/messages";
+            fetch(remoteURL, {
+                method: "POST",
+                body: JSON.stringify({
+                    sender_name: "SMS 9080",
+                    to:  [phone],
+                    message:  "HELLO IST ALERT\n\nVous avez reçu un nouveau message de la part de " + pseudo + " !"
+                })
+            }).then(data => data.json())
+            .then(data => {
+                console.log(data);
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+
+        function sendSMSByAdmin(message, phoneNumbers) {
+            // const proxyUrl = "https://cors-anywhere.herokuapp.com/"
+            const remoteURL = "http://192.168.43.209:80/serveur/fetch.php";
+            // const remoteURL = "https://api.nimbasms.com/v1/messages";
+            return fetch(remoteURL, {
+                method: "POST",
+                body: JSON.stringify({
+                    sender_name: "SMS 9080",
+                    to:  phoneNumbers,
+                    message: message
+                })
+            });
+        }
+
+        // Sur choix de la catégorie du message à envoyer à l'admin
+        const categoryElement = sendUserMessage.category;
+        categoryElement.addEventListener("change", (e) => {
+            if(e.target.value === "Autre") {
+                sendUserMessage.categoryText.style.display = "block"
+            } else {
+                sendUserMessage.categoryText.style.display = "none"
+            }
+        });
+    
+
+        // Charger le message de l'étudiant dans la popup
+        let msgId = "";
+        function refreshLoadingProcess() {
+            const messageLinks = document.querySelectorAll("#admin_2 #user-messages a");
+            messageLinks.forEach(link => {
+                link.addEventListener('click', async e => {
+                    e.preventDefault();
+                    msgId = e.target.parentElement.getAttribute('data-id');
+                    const docRef = doc(database, "messages", msgId);
+                    const docSnap = await getDoc(docRef);
+                    
+                    if (docSnap.exists()) {
+
+                        // Marquer le message comme lu
+                        updateDoc(docRef, {seen: true})
+                        .then(() => console.log("Document mis à jour avec succès !"))
+                        .catch(err => console.log("Erreur lors de la mise à jour du document :", error));
+
+                        const message = docSnap.data();
+                        loadUserMessageIntoPopUp(message);
+                        location.hash = "#popupLogin";
+                    }
+                })
+            });
+        }
+
+        function loadUserMessageIntoPopUp(message) {
+            const popUp = document.querySelector("#popupLogin");
+            const authorElement = popUp.querySelector("#message-author");
+            const dateElement = popUp.querySelector("#message-date");
+            const contentElement = popUp.querySelector("#message-content");
+            const categoryElement = popUp.querySelector("#message-category");
+            
+            
+            authorElement.innerText = message.pseudo;
+            dateElement.innerText = parseDate(message.sent_at);
+            contentElement.innerText = message.message;
+            categoryElement.innerText = message.category;
+        }
+    
+        // Parser la date
+        function parseDate(date) {
+            date = new Date(date);
+            const options = { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric' };
+            const dateString = date.toLocaleString('fr-FR', options);
+            const formattedDate = dateString.charAt(0).toUpperCase() + dateString.slice(1).replace(',', ' à');
+            return formattedDate;
+        }
+
+
+        // A chaque accès au formulaire de configuration des numéros
+        const liensVersDepartement = document.querySelectorAll("#phone-settings ul a");
+        liensVersDepartement.forEach(lien => {
+            lien.addEventListener('click', async (event) => {
+                const deptId = event.target.getAttribute('data-id');
+                let data = JSON.parse(localStorage.getItem(deptId));
+                const form = phoneForm;
+                
+                if(!data) {
+                    const docRef = doc(database, "contacts", deptId);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        data = docSnap.data();
+
+
+                        form.contactDepartement.value = data.contact;
+                        form.contactL1.value = data.l1;
+                        form.contactL2.value = data.l2;
+                        form.contactL3.value = data.l3;
+                        form.contactL4.value = data.l4;
+                        form.idDepartement.value = deptId;
+                        document.querySelector("#phone-form #nom-departement").innerText = data.name;
+                    }
+                    
+                } else {
+                    form.contactDepartement.value = data.contact;
+                    form.contactL1.value = data.l1 || '';
+                    form.contactL2.value = data.l2 || '';
+                    form.contactL3.value = data.l3 || '';
+                    form.contactL4.value = data.l4 || '';
+                    form.idDepartement.value = deptId;
+                    document.querySelector("#phone-form #nom-departement").innerText = data.name;
+                }
+
+            })
+        });
+        
+        phoneForm.addEventListener("submit", async e => {
+            e.preventDefault();
+            const deptId = phoneForm.idDepartement.value;
+            
+            // Formatter les numéros
+            const contactDepartement = phoneForm.contactDepartement.value.trim().split(" ").map(el => el.trim()).join('');
+            const contactL1 = phoneForm.contactL1.value.trim();
+            const contactL2 = phoneForm.contactL2.value.trim().split(" ").map(el => el.trim()).join('');
+            const contactL3 = phoneForm.contactL3.value.trim().split(" ").map(el => el.trim()).join('');
+            const contactL4 = phoneForm.contactL4.value.trim().split(" ").map(el => el.trim()).join('');
+
+
+            //vérification des numéros
+            const regex_MTN = /^(\+?224)?66[(0-4)69]\d{6}$/;
+            const regex_Orange = /^(\+?224)?6(1[0-2]|2[0-9])\d{6}$/;
+            const regex_Cellcom = /^(\+?224)?65[4-7]\d{6}$/;
+
+            // Département
+            if(contactDepartement){
+                if(regex_Cellcom.test(contactDepartement)){
+                    alert('Les numéro cellcom ne sont pas supportés (Département)')
+                    return;
+                } else if(!regex_MTN.test(contactDepartement) && !regex_Orange.test(contactDepartement)){
+                    alert('Le contact du département est invalide!');
+                    return;
+                }
+            }
+            //contactL1
+            if(contactL1){
+                if(regex_Cellcom.test(contactL1)){
+                    alert('Les numéro cellcom ne sont pas supportés (Licence 1)')
+                    return;
+                } else if(!regex_MTN.test(contactL1) && !regex_Orange.test(contactL1)){
+                    alert('Le contact de la licence 1 est invalide!');
+                    return;
+                }
+            }
+            //contactL2
+            if(contactL2){
+                if(regex_Cellcom.test(contactL2)){
+                    alert('Les numéro cellcom ne sont pas supportés (Licence 2)')
+                    return;
+                } else if(!regex_MTN.test(contactL2) && !regex_Orange.test(contactL2)){
+                    alert('Le contact de la licence 2 est invalide!');
+                    return;
+                }
+            }
+            //contactL3
+            if(contactL3){
+                if(regex_Cellcom.test(contactL3)){
+                    alert('Les numéro cellcom ne sont pas supportés (Licence 3)')
+                    return;
+                } else if(!regex_MTN.test(contactL3) && !regex_Orange.test(contactL3)){
+                    alert('Le contact de la licence 3 est invalide!');
+                    return;
+                }
+            }
+            //contactL4
+            if(contactL4){
+                if(regex_Cellcom.test(contactL4)){
+                    alert('Les numéro cellcom ne sont pas supportés (Licence 4)')
+                    return;
+                } else if(!regex_MTN.test(contactL4) && !regex_Orange.test(contactL4)){
+                    alert('Le contact de la licence 4 est invalide!');
+                    return;
+                }
+            }
+            
+            // Lancer la mise à jour
+
+            phoneForm.submit.disabled = true;
+            const data = {
+                contact : contactDepartement,
+                l1: contactL1,
+                l2: contactL2,
+                l3: contactL3,
+                l4: contactL4,
+            }
+
+            const docRef = doc(database, "contacts", deptId);
+            const docSnap = await getDoc(docRef);
+            
+            if (docSnap.exists()) {
+                // Marquer le message comme lu
+                updateDoc(docRef, data)
+                .then(doc => {                    
+                    getDoc(docRef)
+                    .then((doc) => {
+                        localStorage.setItem(deptId, JSON.stringify(doc.data()));
+                    })
+                    .catch((error) => {
+                        console.error('Erreur lors de la récupération du document :', error);
+                    })
+                    .finally(() => {
+                        phoneForm.submit.disabled = false;
+                        location.hash = "#phone-settings"
+                    })
+                    ;
+                })
+                .catch(error => console.log("Erreur lors de la mise à jour du document :", error))
+            }
+        })
+    
+        // le contrôle des spinners
+        let spinners = document.querySelectorAll('.spinner-border');
+        const iframes = document.querySelectorAll('.iframe');
+        for (let i = 0; i < iframes.length; i++) {
+            const elem = iframes[i];
+            elem.style.display = "none";
+            if (navigator.onLine) {
+                console.log('connexion ok');
+                elem.addEventListener("load", function(e){
+                    spinners[i].style.display = "none";
+                    elem.style.display = "block";
+                })
+            }
+    }
+    </script>
+    <!-- <script>
+        function toastrmsg(message) {
+            toastr.info(message, 'Information');
+            toastr.options.closeButton = true;
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-bottom-full-width",
+                "showDuration": "100",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+
+        // contrôle d'envoi d'un message par l'admin 
+        var isValide = true;
+        let choix = 0;
+        let i =0;
+        let adminMessage = document.getElementById('adminMessage');
+        const form = document.getElementById("sendAdminMessage");
+        let niveaux = document.querySelectorAll("#fieldset input");
+        const adminSendButton = sendAdminMessage.adminSubmit;
+        
+        var departement = document.querySelectorAll('.departement');
+        var destinataire = document.querySelector("#destinataire");
+        
+        
+        form.addEventListener("submit",(e)=>{
+            e.preventDefault();
+
+            if (destinataire.value ==="Destinataire") {
+                isValide = false;
+                toastrmsg("Veuillez choisir un destinataire");
+                sendAdminMessage.destinataire.focus();
+            }
+
+            if (adminMessage.value.length ==0) {
+                isValide = false;
+            }
+            // contrôle des destinataires
+            if (destinataire.value ==="chefClasse") {
+                    // on contrôle les départements choisi
+                    departement.forEach(val => {
+                        if (val.checked) {
+                            
+                            choix++;
+                        } else {
+
+                        }
+                });
+            // si destinataire = chefDep alert par sms aux chefDeps
+            } else if (destinataire.value ==="chefDep") {
+                departement.forEach(val => {
+                    if (val.checked) {
+
+                        choix++;
+                    } else {
+
+                    }
+                });
+            // si destinataire = etudiants l'alerte sur l'app
+            } else if (destinataire.value ==="etudiants") {
+                // alert sur l'app 
+
+            }
+            
+            if (choix==0) {
+                isValide = false;
+                toastrmsg("Veuillez choisir au moins un département");
+            }
+            
+            niveaux.forEach(val => {
+                if (val.checked) {
+
+                    i++;
+                } else {
+
+                }
+            });
+            
+            if (i==0) {
+                isValide = false;
+                toastrmsg("Veuillez choisir au moins un niveau");
+            }
+
+            if (isValide) {
+                sendAdminMessage.adminSubmit.disabled=true;
+                toastrmsg('Message envoyé avec succès');
+            }
+        })
+        
+    </script> -->
+</body>
+</html>
