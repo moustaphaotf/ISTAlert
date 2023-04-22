@@ -694,387 +694,387 @@
             querySnapshot.forEach(doc => {
                 localStorage.setItem(doc.id, JSON.stringify(doc.data()));
             });
+        })
 
-
-                // A chaque changement de page
-            $(document).on("pagechange", function(e) {
-                // Si c'est la page de login ou la page d'alertes ou la page d'administration
-                const id_page = location.hash;
-                
-                if(!localStorage.getItem("admin-info") && (id_page === "#admin_1" || id_page === "#admin_2" || id_page === "#admin_3" )){
-                    location.hash = "#admin_page";
-                }
-
-                if(localStorage.getItem("admin-info") && id_page === "#admin_page"){
-                    location.hash = "#admin_2";
-                }
-
-                if(id_page === "#admin_2") {
-                    const messagesList = document.querySelector("#admin_2 #user-messages");
-                    messagesList.innerHTML =""
-                    loadUserMessages();
-                }
-
-                if(id_page === "#pannel_3") {
-                    const messagesList = document.querySelector("#pannel_3 #admin-messages");
-                    messagesList.innerHTML =""
-                    loadAdminMessages();
-                }
-            });
-
-            // -----------------------------------------------------------------------------------------------------------
-            // ADMINISTRATION
+        // A chaque changement de page
+        $(document).on("pagechange", function(e) {
+            // Si c'est la page de login ou la page d'alertes ou la page d'administration
+            const id_page = location.hash;
             
-            // Connexion de l'administrateur
-            loginAdmin.addEventListener("submit", function(e) {
-                e.preventDefault();
-                const passwordElem = loginAdmin.password;
-                const emailElem = loginAdmin.email; 
-
-                const email = emailElem.value, password = passwordElem.value;
-                if(email === "" || password === "") {
-                    alert("Veuillez renseigner les informations");
-                    return;
-                } 
-
-                loginAdmin.submit.disabled = true;
-
-                signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    loginAdmin.reset();
-                    const user = userCredential.user;
-                    localStorage.setItem("admin-info", JSON.stringify(user));
-                    location.hash = "#admin_2";
-                })
-                .catch((error) => {
-                    alert("Une erreur est survenue lors de la connexion !");
-                    console.log(error);
-                }).finally(() => {
-                    loginAdmin.submit.disabled = false;
-                });
-            });
-
-            // Déconnexion de l'administrateur
-
-            const logoutBtns = document.querySelectorAll(".logout");
-            logoutBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.target.disabled = true;
-                    signOut(auth).then(() => {
-                        localStorage.removeItem("admin-info");
-                        location.hash = "#";
-                    }).catch((error) => {
-                        alert("Une erreur est survenue !");
-                    }).finally(() => {
-                        e.target.disabled = false;
-                    });
-                });
-            });
-
-            // ADMIN 2
-            // A chaque modification du filtre
-            document.querySelector("#admin_2 #filtreMessages").addEventListener('change', loadUserMessages);
-
-            // Fonction qui récupère les données de firebase (messages envoyés par les étudiants)
-            async function loadUserMessages() {
-                // Personnaliser le filtre
-                const filtre = document.getElementById("filtreMessages").value;
-                let q = null;
-                if(filtre === 'read') {
-                    q = query(collection(database, "messages"), orderBy("sent_at", "desc"), where("seen", "==", true));
-                } else if(filtre === 'unread') {
-                    q = query(collection(database, "messages"), orderBy("sent_at", "desc"), where("seen", "==", false));
-                } else {
-                    q = query(collection(database, "messages"), orderBy("sent_at", "desc"));
-                }
-                const messagesList = document.querySelector("#admin_2 #user-messages");
-                messagesList.innerHTML = ""
-                
-                const querySnapshot = await getDocs(q);
-                
-                querySnapshot.forEach(doc => {
-                    const id = doc.id;
-                    const data = doc.data();
-                    if(data) {
-                        messagesList.innerHTML += `
-                            <li data-message='${JSON.stringify({...data, id})}'>
-                                <a data-message='${JSON.stringify({...data, id})}' href="#popupLogin" class="ui-btn ui-btn-icon-right ui-icon-carat-r ${data.seen === true ? 'msg-read' : 'msg-unread'}">
-                                    De : <span style="font-weight:normal !important;">${data.pseudo}</span><br />
-                                    Envoyé le : <span style="font-weight:normal !important;">${parseDate(data.sent_at)}</span></br>
-                                    Catégorie : <span style="font-weight:normal !important;">${data.category}</span><br />
-                                    Contenu : 
-                                    <p style="font-weight: normal;">${data.message}</p>
-                                </a>
-                            </li>
-                        `;
-                    }
-                });
-                const error = document.querySelector("#admin_2 .empty-list");
-                if(querySnapshot.empty) {
-                    error.style.display = 'block';
-                } else {
-                    error.style.display = 'none';
-                }
+            if(!localStorage.getItem("admin-info") && (id_page === "#admin_1" || id_page === "#admin_2" || id_page === "#admin_3" )){
+                location.hash = "#admin_page";
             }
+
+            if(localStorage.getItem("admin-info") && id_page === "#admin_page"){
+                location.hash = "#admin_2";
+            }
+
+            if(id_page === "#admin_2") {
+                const messagesList = document.querySelector("#admin_2 #user-messages");
+                messagesList.innerHTML =""
+                loadUserMessages();
+            }
+
+            if(id_page === "#pannel_3") {
+                const messagesList = document.querySelector("#pannel_3 #admin-messages");
+                messagesList.innerHTML =""
+                loadAdminMessages();
+            }
+        });
+
+        // -----------------------------------------------------------------------------------------------------------
+        // ADMINISTRATION
+        
+        // Connexion de l'administrateur
+        loginAdmin.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const passwordElem = loginAdmin.password;
+            const emailElem = loginAdmin.email; 
+
+            const email = emailElem.value, password = passwordElem.value;
+            if(email === "" || password === "") {
+                alert("Veuillez renseigner les informations");
+                return;
+            } 
+
+            loginAdmin.submit.disabled = true;
+
+            signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                loginAdmin.reset();
+                const user = userCredential.user;
+                localStorage.setItem("admin-info", JSON.stringify(user));
+                location.hash = "#admin_2";
+            })
+            .catch((error) => {
+                alert("Une erreur est survenue lors de la connexion !");
+                console.log(error);
+            }).finally(() => {
+                loginAdmin.submit.disabled = false;
+            });
+        });
+
+        // Déconnexion de l'administrateur
+
+        const logoutBtns = document.querySelectorAll(".logout");
+        logoutBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.target.disabled = true;
+                signOut(auth).then(() => {
+                    localStorage.removeItem("admin-info");
+                    location.hash = "#";
+                }).catch((error) => {
+                    alert("Une erreur est survenue !");
+                }).finally(() => {
+                    e.target.disabled = false;
+                });
+            });
+        });
+
+        // ADMIN 2
+        // A chaque modification du filtre
+        document.querySelector("#admin_2 #filtreMessages").addEventListener('change', loadUserMessages);
+
+        // Fonction qui récupère les données de firebase (messages envoyés par les étudiants)
+        async function loadUserMessages() {
+            // Personnaliser le filtre
+            const filtre = document.getElementById("filtreMessages").value;
+            let q = null;
+            if(filtre === 'read') {
+                q = query(collection(database, "messages"), orderBy("sent_at", "desc"), where("seen", "==", true));
+            } else if(filtre === 'unread') {
+                q = query(collection(database, "messages"), orderBy("sent_at", "desc"), where("seen", "==", false));
+            } else {
+                q = query(collection(database, "messages"), orderBy("sent_at", "desc"));
+            }
+            const messagesList = document.querySelector("#admin_2 #user-messages");
+            messagesList.innerHTML = ""
             
-            // Charger le message de l'administrateur dans la fenetre
-            document.querySelector("#admin_2 #user-messages").addEventListener('click', async e => {
-                // Récupérer le message depuis le lien cliqué
-                let message = null;
-                if(e.target.nodeType === HTMLLinkElement || e.target.nodeType === HTMLLIElement) {
-                    message = JSON.parse(e.target.getAttribute('data-message'));
-                } else {
-                    message = JSON.parse(e.target.parentElement.getAttribute('data-message'));
-                }
-
-                // Le charger dans la popup
-                $("#popupLogin #message-author").text(message.pseudo);
-                $("#popupLogin #message-date").text(parseDate(message.sent_at));
-                $("#popupLogin #message-content").text(message.message);
-                $("#popupLogin #message-category").text(message.category);
-
-                // Marquer le message comme lu
-                console.log(message)
-                const docRef = doc(database, "messages", message.id);
-                const docSnap = await getDoc(docRef);
-
-                if (docSnap.exists()) {
-                    updateDoc(docRef, {seen: true})
-                        .then(() => console.log("Document mis à jour avec succès !"))
-                        .catch(err => console.log("Erreur lors de la mise à jour du document :", error));
+            const querySnapshot = await getDocs(q);
+            
+            querySnapshot.forEach(doc => {
+                const id = doc.id;
+                const data = doc.data();
+                if(data) {
+                    messagesList.innerHTML += `
+                        <li data-message='${JSON.stringify({...data, id})}'>
+                            <a data-message='${JSON.stringify({...data, id})}' href="#popupLogin" class="ui-btn ui-btn-icon-right ui-icon-carat-r ${data.seen === true ? 'msg-read' : 'msg-unread'}">
+                                De : <span style="font-weight:normal !important;">${data.pseudo}</span><br />
+                                Envoyé le : <span style="font-weight:normal !important;">${parseDate(data.sent_at)}</span></br>
+                                Catégorie : <span style="font-weight:normal !important;">${data.category}</span><br />
+                                Contenu : 
+                                <p style="font-weight: normal;">${data.message}</p>
+                            </a>
+                        </li>
+                    `;
                 }
             });
+            const error = document.querySelector("#admin_2 .empty-list");
+            if(querySnapshot.empty) {
+                error.style.display = 'block';
+            } else {
+                error.style.display = 'none';
+            }
+        }
+        
+        // Charger le message de l'administrateur dans la fenetre
+        document.querySelector("#admin_2 #user-messages").addEventListener('click', async e => {
+            // Récupérer le message depuis le lien cliqué
+            let message = null;
+            if(e.target.nodeType === HTMLLinkElement || e.target.nodeType === HTMLLIElement) {
+                message = JSON.parse(e.target.getAttribute('data-message'));
+            } else {
+                message = JSON.parse(e.target.parentElement.getAttribute('data-message'));
+            }
 
-            // ADMIN 3
-            // Traitement dynamique sur le formulaire d'envoi d'SMS par l'admin
-            // Afficher les champs à remplir selon l'option choisie
-            $(sendAdminMessage.destinataire).on('change', e => {
-                const destinataire = e.target.value;
-                if(destinataire === "chefDep"){
-                    $("#admin_3 #block-niveau").hide();
-                    $("#admin_3 #block-departement").show();
-                } else if(destinataire === "chefClasse") {
-                    $("#admin_3 #block-niveau, #admin_3 #block-departement").show();
-                } else {
-                    $("#admin_3 #block-niveau, #admin_3 #block-departement").hide();
-                }
-            });
+            // Le charger dans la popup
+            $("#popupLogin #message-author").text(message.pseudo);
+            $("#popupLogin #message-date").text(parseDate(message.sent_at));
+            $("#popupLogin #message-content").text(message.message);
+            $("#popupLogin #message-category").text(message.category);
 
-            // Envoi de SMS par l'Administrateur
-            sendAdminMessage.addEventListener("submit", async e => {
-                e.preventDefault()
-                // Récupération des données
+            // Marquer le message comme lu
+            console.log(message)
+            const docRef = doc(database, "messages", message.id);
+            const docSnap = await getDoc(docRef);
 
-                // Récupérer le destinataire
-                const destinataire = sendAdminMessage.destinataire.value;
-                let departementsElements = $('#admin_3 .departement:checked');
-                let classesElements = $('#admin_3 .niveau:checked')
-                let departements = [], classes = [];
+            if (docSnap.exists()) {
+                updateDoc(docRef, {seen: true})
+                    .then(() => console.log("Document mis à jour avec succès !"))
+                    .catch(err => console.log("Erreur lors de la mise à jour du document :", error));
+            }
+        });
 
-                // Récupérer les départements
-                for(let i = 0; i < departementsElements.length; i++) {
-                    departements.push(departementsElements[i].value);
-                }
+        // ADMIN 3
+        // Traitement dynamique sur le formulaire d'envoi d'SMS par l'admin
+        // Afficher les champs à remplir selon l'option choisie
+        $(sendAdminMessage.destinataire).on('change', e => {
+            const destinataire = e.target.value;
+            if(destinataire === "chefDep"){
+                $("#admin_3 #block-niveau").hide();
+                $("#admin_3 #block-departement").show();
+            } else if(destinataire === "chefClasse") {
+                $("#admin_3 #block-niveau, #admin_3 #block-departement").show();
+            } else {
+                $("#admin_3 #block-niveau, #admin_3 #block-departement").hide();
+            }
+        });
 
+        // Envoi de SMS par l'Administrateur
+        sendAdminMessage.addEventListener("submit", async e => {
+            e.preventDefault()
+            // Récupération des données
+
+            // Récupérer le destinataire
+            const destinataire = sendAdminMessage.destinataire.value;
+            let departementsElements = $('#admin_3 .departement:checked');
+            let classesElements = $('#admin_3 .niveau:checked')
+            let departements = [], classes = [];
+
+            // Récupérer les départements
+            for(let i = 0; i < departementsElements.length; i++) {
+                departements.push(departementsElements[i].value);
+            }
+
+            
+            // Récupérer les classes
+            for(let i = 0; i < classesElements.length; i++) {
+                classes.push(classesElements[i].value);
+            }
+
+            //Récupérer le message
+            const message = sendAdminMessage.message.value.trim();
+
+            if(message === "") {
+                alert("Veuillez saisir votre message !");
+                return;
+            }
+
+            // Récupérer les numéros de téléphone dépuis localStorage
+            if(destinataire !== 'etudiants') {
+                const phoneNumbers = [];
+                for(let dept of departements) {
+                    let deptInfos = localStorage.getItem(dept);
                 
-                // Récupérer les classes
-                for(let i = 0; i < classesElements.length; i++) {
-                    classes.push(classesElements[i].value);
-                }
+                    if(deptInfos) {
+                        deptInfos = JSON.parse(deptInfos);
 
-                //Récupérer le message
-                const message = sendAdminMessage.message.value.trim();
+                        if(destinataire === 'chefClasse'){
+                            // Pour chaque classe on prend le numéro qu'on ajoute
+                            for(let classe of classes) {
 
-                if(message === "") {
-                    alert("Veuillez saisir votre message !");
-                    return;
-                }
+                                if(deptInfos[classe] != "") {
 
-                // Récupérer les numéros de téléphone dépuis localStorage
-                if(destinataire !== 'etudiants') {
-                    const phoneNumbers = [];
-                    for(let dept of departements) {
-                        let deptInfos = localStorage.getItem(dept);
-                    
-                        if(deptInfos) {
-                            deptInfos = JSON.parse(deptInfos);
-
-                            if(destinataire === 'chefClasse'){
-                                // Pour chaque classe on prend le numéro qu'on ajoute
-                                for(let classe of classes) {
-
-                                    if(deptInfos[classe] != "") {
-
-                                        phoneNumbers.push(deptInfos[classe])
-                                    }
-                                }
-                            } else if(destinataire === 'chefDep') {
-                                if(deptInfos.contact) {
-                                    phoneNumbers.push(deptInfos.contact);
+                                    phoneNumbers.push(deptInfos[classe])
                                 }
                             }
-                        } else {
-                            alert("Veuillez patienter SVP !\nOu allez configurer les numéros dans les paramètres !");
-                            return;
+                        } else if(destinataire === 'chefDep') {
+                            if(deptInfos.contact) {
+                                phoneNumbers.push(deptInfos.contact);
+                            }
                         }
-                    }
-
-                    if(phoneNumbers.length === 0) {
-                        alert("Vous devez définir le(s) destinataire(s) dans les paramètres !");
+                    } else {
+                        alert("Veuillez patienter SVP !\nOu allez configurer les numéros dans les paramètres !");
                         return;
                     }
-
-                    
-                    sendAdminMessage.submit.disabled = true;
-                    // Envoyer le SMS aux destinataires
-                    console.log({message, phoneNumbers});
-                    sendSMSByAdmin(message, phoneNumbers)
-                    .then(data => {
-                        let msg = "Message";
-			msg += phoneNumbers.length > 1 ? "s" : "";
-                        msg += " envoyé" + phoneNumbers.length > 1 ? "s" : "";
-			msg += " avec succès !";
-			
-			if(phoneNumbers.length > 1) {
-			    msg += "\nTotal envoyés : " + phoneNumbers.length + " messages."; 
-			}
-			
-			alert(msg);
-
-
-                        // Puis on reset le formulaire
-			sendAdminMessage.reset();
-			$("#admin_3 #block-niveau, #admin_3 #block-departement").hide();
-
-                        console.log(data);
-                    }).catch(err => {
-                        alert("Une erreur est survenue lors de l'envoi des messages!")
-                        console.log(err);
-                    }).finally(() => {
-                        sendAdminMessage.submit.disabled = false;
-                    });
                 }
-                else {
-                    // Alors ce message est destiné aux étudiants
-                    const data = {
-                        sent_at: new Date().toISOString(),
-                        message: message,
-                    }
-                    
-                    const submitBtn = $("#admin_3 button[type='submit']");
-                    
-                    submitBtn.attr('disabled', true);
 
-                    await addDoc(collection(database, "adminmessages"), data).then(() => {
-                        alert("Message envoyé avec succès");
-                        sendAdminMessage.reset();
-                    }).catch(e => {
-                        alert("Une erreur est survenue !");
-                    }).finally(() => {
-                        submitBtn.attr('disabled', false);
-                    });
+                if(phoneNumbers.length === 0) {
+                    alert("Vous devez définir le(s) destinataire(s) dans les paramètres !");
+                    return;
                 }
-            });
 
-            // ADMIN 3 -- Paramètres
-            // A chaque accès au formulaire de configuration des numéros
-            const liensVersDepartement = document.querySelectorAll("#phone-settings ul a");
-            liensVersDepartement.forEach(lien => {
-                lien.addEventListener('click', async (event) => {
-                    const deptId = event.target.getAttribute('data-id');
-                    let data = JSON.parse(localStorage.getItem(deptId));
-                    const form = phoneForm;
-                    
-                    if(!data) {
-                        const docRef = doc(database, "contacts", deptId);
-                        const docSnap = await getDoc(docRef);
-                        if (docSnap.exists()) {
-                            data = docSnap.data();
+                
+                sendAdminMessage.submit.disabled = true;
+                // Envoyer le SMS aux destinataires
+                console.log({message, phoneNumbers});
+                sendSMSByAdmin(message, phoneNumbers)
+                .then(data => {
+                    let msg = "Message";
+        msg += phoneNumbers.length > 1 ? "s" : "";
+                    msg += " envoyé" + phoneNumbers.length > 1 ? "s" : "";
+        msg += " avec succès !";
+        
+        if(phoneNumbers.length > 1) {
+            msg += "\nTotal envoyés : " + phoneNumbers.length + " messages."; 
+        }
+        
+        alert(msg);
 
-                            form.contactDepartement.value = data.contact;
-                            form.contactL1.value = data.l1;
-                            form.contactL2.value = data.l2;
-                            form.contactL3.value = data.l3;
-                            form.contactL4.value = data.l4;
-                            form.idDepartement.value = deptId;
-                            document.querySelector("#phone-form #nom-departement").innerText = data.name;
-                        }
-                        
-                    } else {
+
+                    // Puis on reset le formulaire
+        sendAdminMessage.reset();
+        $("#admin_3 #block-niveau, #admin_3 #block-departement").hide();
+
+                    console.log(data);
+                }).catch(err => {
+                    alert("Une erreur est survenue lors de l'envoi des messages!")
+                    console.log(err);
+                }).finally(() => {
+                    sendAdminMessage.submit.disabled = false;
+                });
+            }
+            else {
+                // Alors ce message est destiné aux étudiants
+                const data = {
+                    sent_at: new Date().toISOString(),
+                    message: message,
+                }
+                
+                const submitBtn = $("#admin_3 button[type='submit']");
+                
+                submitBtn.attr('disabled', true);
+
+                await addDoc(collection(database, "adminmessages"), data).then(() => {
+                    alert("Message envoyé avec succès");
+                    sendAdminMessage.reset();
+                }).catch(e => {
+                    alert("Une erreur est survenue !");
+                }).finally(() => {
+                    submitBtn.attr('disabled', false);
+                });
+            }
+        });
+
+        // ADMIN 3 -- Paramètres
+        // A chaque accès au formulaire de configuration des numéros
+        const liensVersDepartement = document.querySelectorAll("#phone-settings ul a");
+        liensVersDepartement.forEach(lien => {
+            lien.addEventListener('click', async (event) => {
+                const deptId = event.target.getAttribute('data-id');
+                let data = JSON.parse(localStorage.getItem(deptId));
+                const form = phoneForm;
+                
+                if(!data) {
+                    const docRef = doc(database, "contacts", deptId);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        data = docSnap.data();
+
                         form.contactDepartement.value = data.contact;
-                        form.contactL1.value = data.l1 || '';
-                        form.contactL2.value = data.l2 || '';
-                        form.contactL3.value = data.l3 || '';
-                        form.contactL4.value = data.l4 || '';
+                        form.contactL1.value = data.l1;
+                        form.contactL2.value = data.l2;
+                        form.contactL3.value = data.l3;
+                        form.contactL4.value = data.l4;
                         form.idDepartement.value = deptId;
                         document.querySelector("#phone-form #nom-departement").innerText = data.name;
                     }
-
-                })
-            });
-
-            // Sur soumission des numéros de téléphone
-            phoneForm.addEventListener("submit", async e => {
-                e.preventDefault();
-                const deptId = phoneForm.idDepartement.value;
-                
-                // Formatter les numéros
-                const contactDepartement = phoneForm.contactDepartement.value.trim().split(" ").map(el => el.trim()).join('');
-                const contactL1 = phoneForm.contactL1.value.trim();
-                const contactL2 = phoneForm.contactL2.value.trim().split(" ").map(el => el.trim()).join('');
-                const contactL3 = phoneForm.contactL3.value.trim().split(" ").map(el => el.trim()).join('');
-                const contactL4 = phoneForm.contactL4.value.trim().split(" ").map(el => el.trim()).join('');
-
-
-                //vérification des numéros
-                const regex_MTN = /^(\+?224)?66[(0-4)69]\d{6}$/;
-                const regex_Orange = /^(\+?224)?6(1[0-2]|2[0-9])\d{6}$/;
-                const regex_Cellcom = /^(\+?224)?65[4-7]\d{6}$/;
-
-                // Département
-                if(contactDepartement){
-                    if(regex_Cellcom.test(contactDepartement)){
-                        alert('Les numéro cellcom ne sont pas supportés (Département)')
-                        return;
-                    } else if(!regex_MTN.test(contactDepartement) && !regex_Orange.test(contactDepartement)){
-                        alert('Le contact du département est invalide!');
-                        return;
-                    }
+                    
+                } else {
+                    form.contactDepartement.value = data.contact;
+                    form.contactL1.value = data.l1 || '';
+                    form.contactL2.value = data.l2 || '';
+                    form.contactL3.value = data.l3 || '';
+                    form.contactL4.value = data.l4 || '';
+                    form.idDepartement.value = deptId;
+                    document.querySelector("#phone-form #nom-departement").innerText = data.name;
                 }
-                //contactL1
-                if(contactL1){
-                    if(regex_Cellcom.test(contactL1)){
-                        alert('Les numéro cellcom ne sont pas supportés (Licence 1)')
-                        return;
-                    } else if(!regex_MTN.test(contactL1) && !regex_Orange.test(contactL1)){
-                        alert('Le contact de la licence 1 est invalide!');
-                        return;
-                    }
+
+            })
+        });
+
+        // Sur soumission des numéros de téléphone
+        phoneForm.addEventListener("submit", async e => {
+            e.preventDefault();
+            const deptId = phoneForm.idDepartement.value;
+            
+            // Formatter les numéros
+            const contactDepartement = phoneForm.contactDepartement.value.trim().split(" ").map(el => el.trim()).join('');
+            const contactL1 = phoneForm.contactL1.value.trim();
+            const contactL2 = phoneForm.contactL2.value.trim().split(" ").map(el => el.trim()).join('');
+            const contactL3 = phoneForm.contactL3.value.trim().split(" ").map(el => el.trim()).join('');
+            const contactL4 = phoneForm.contactL4.value.trim().split(" ").map(el => el.trim()).join('');
+
+
+            //vérification des numéros
+            const regex_MTN = /^(\+?224)?66[(0-4)69]\d{6}$/;
+            const regex_Orange = /^(\+?224)?6(1[0-2]|2[0-9])\d{6}$/;
+            const regex_Cellcom = /^(\+?224)?65[4-7]\d{6}$/;
+
+            // Département
+            if(contactDepartement){
+                if(regex_Cellcom.test(contactDepartement)){
+                    alert('Les numéro cellcom ne sont pas supportés (Département)')
+                    return;
+                } else if(!regex_MTN.test(contactDepartement) && !regex_Orange.test(contactDepartement)){
+                    alert('Le contact du département est invalide!');
+                    return;
                 }
-                //contactL2
-                if(contactL2){
-                    if(regex_Cellcom.test(contactL2)){
-                        alert('Les numéro cellcom ne sont pas supportés (Licence 2)')
-                        return;
-                    } else if(!regex_MTN.test(contactL2) && !regex_Orange.test(contactL2)){
-                        alert('Le contact de la licence 2 est invalide!');
-                        return;
-                    }
+            }
+            //contactL1
+            if(contactL1){
+                if(regex_Cellcom.test(contactL1)){
+                    alert('Les numéro cellcom ne sont pas supportés (Licence 1)')
+                    return;
+                } else if(!regex_MTN.test(contactL1) && !regex_Orange.test(contactL1)){
+                    alert('Le contact de la licence 1 est invalide!');
+                    return;
                 }
-                //contactL3
-                if(contactL3){
-                    if(regex_Cellcom.test(contactL3)){
-                        alert('Les numéro cellcom ne sont pas supportés (Licence 3)')
-                        return;
-                    } else if(!regex_MTN.test(contactL3) && !regex_Orange.test(contactL3)){
-                        alert('Le contact de la licence 3 est invalide!');
-                        return;
-                    }
+            }
+            //contactL2
+            if(contactL2){
+                if(regex_Cellcom.test(contactL2)){
+                    alert('Les numéro cellcom ne sont pas supportés (Licence 2)')
+                    return;
+                } else if(!regex_MTN.test(contactL2) && !regex_Orange.test(contactL2)){
+                    alert('Le contact de la licence 2 est invalide!');
+                    return;
                 }
-                //contactL4
-                if(contactL4){
-                    if(regex_Cellcom.test(contactL4)){
-                        alert('Les numéro cellcom ne sont pas supportés (Licence 4)')
+            }
+            //contactL3
+            if(contactL3){
+                if(regex_Cellcom.test(contactL3)){
+                    alert('Les numéro cellcom ne sont pas supportés (Licence 3)')
+                    return;
+                } else if(!regex_MTN.test(contactL3) && !regex_Orange.test(contactL3)){
+                    alert('Le contact de la licence 3 est invalide!');
+                    return;
+                }
+            }
+            //contactL4
+            if(contactL4){
+                if(regex_Cellcom.test(contactL4)){
+                    alert('Les numéro cellcom ne sont pas supportés (Licence 4)')
                         return;
                     } else if(!regex_MTN.test(contactL4) && !regex_Orange.test(contactL4)){
                         alert('Le contact de la licence 4 est invalide!');
@@ -1282,7 +1282,7 @@
                     })
                 }
             }
-        })
+        
 
     </script>
     <!-- <script>
