@@ -731,7 +731,7 @@
             const passwordElem = loginAdmin.password;
             const emailElem = loginAdmin.email; 
 
-            const email = emailElem.value, password = passwordElem.value;
+            const email = emailElem.value.trim(), password = passwordElem.value.trim();
             if(email === "" || password === "") {
                 alert("Veuillez renseigner les informations");
                 return;
